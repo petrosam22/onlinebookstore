@@ -1,7 +1,12 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Book;
+use App\Models\Rate;
+use App\Models\Review;
+use App\Models\Order;
+use App\Models\Refund;
+use App\Models\Post;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,6 +26,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'image',
     ];
 
     /**
@@ -42,4 +49,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function books(){
+        return $this->hasMany(Book::class);
+    }
+    public function rates(){
+        return $this->hasMany(Rate::class);
+    }
+    public function reviews(){
+        return $this->hasMany(Review::class);
+    }
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
+    public function refunds(){
+        return $this->hasMany(Refund::class);
+    }
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
+
 }

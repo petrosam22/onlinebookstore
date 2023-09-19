@@ -4,6 +4,19 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\BookTableSeeder;
+use Database\Seeders\CartTableSeeder;
+use Database\Seeders\PostTableSeeder;
+use Database\Seeders\RateTableSeeder;
+use Database\Seeders\UserTableSeeder;
+use Database\Seeders\OrderTableSeeder;
+use Database\Seeders\AuthorTableSeeder;
+use Database\Seeders\RefundTableSeeder;
+use Database\Seeders\ReviewTableSeeder;
+use Database\Seeders\CommentTableSeeder;
+use Database\Seeders\CategoryTableSeeder;
+use Database\Seeders\publisherTableSeeder;
+use Database\Seeders\OrderProductTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +25,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            UserTableSeeder::class,
+            AuthorTableSeeder::class,
+            publisherTableSeeder::class,
+            CategoryTableSeeder::class,
+            BookTableSeeder::class,
+            CartTableSeeder::class,
+            PostTableSeeder::class,
+            OrderTableSeeder::class,
+            OrderProductTableSeeder::class,
+            RateTableSeeder::class,
+            RefundTableSeeder::class,
+            ReviewTableSeeder::class,
+            CommentTableSeeder::class,
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        ]);
     }
 }
