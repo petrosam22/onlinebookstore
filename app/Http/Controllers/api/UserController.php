@@ -62,7 +62,6 @@ class UserController extends Controller
 
         return response()->json([
             'message'=>$response['message'],
-            'user'=>$response['user']
         ]);
     }
 }
