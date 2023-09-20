@@ -55,4 +55,14 @@ class UserController extends Controller
 
     }
 
+
+    public function logout(Request $request){
+        $response = $this->UserRepository->logout($request);
+
+
+        return response()->json([
+            'message'=>$response['message'],
+            'user'=>$response['user']
+        ]);
+    }
 }

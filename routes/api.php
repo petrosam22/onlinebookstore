@@ -21,9 +21,9 @@ use App\Http\Controllers\api\ForgotPasswordController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 Route::prefix('user')->group(function () {
 
@@ -32,9 +32,8 @@ Route::post('/login' , [UserController::class,'login']);
 Route::post('/ForgetPassword' , [ForgotPasswordController::class,'ForgetPassword']);
 Route::post('/ResetPassword' , [ResetPasswordController::class,'ResetPassword']);
 Route::post('/update/{id}' , [UserController::class,'update'])->middleware('api');
+Route::post('/logout' , [UserController::class,'logout'])->middleware('auth:sanctum');
 });
-
-
 
 
 

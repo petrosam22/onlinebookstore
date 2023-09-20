@@ -13,6 +13,7 @@ interface UserRepositoryInterface
 {
 public function register(CreateUserRequest $request);
 public function login(LoginUserRequest $request);
+public function logout();
 public function update(UpdateUserRequest $request , $id);
 
 

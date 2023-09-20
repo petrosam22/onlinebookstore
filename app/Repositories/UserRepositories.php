@@ -2,6 +2,7 @@
 namespace App\Repositories;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Jobs\SendWelcomeEmailJob;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ValidatesImageTrait;
@@ -93,6 +94,21 @@ class UserRepositories implements UserRepositoryInterface {
 
 
 
+
+
+    }
+
+    public function logout(){
+
+
+   $user= Auth::user();
+
+
+
+   return[
+        'user'=> $user->tokens()->delete(),
+        'message'=> "logout successfully"
+      ];
 
 
     }
