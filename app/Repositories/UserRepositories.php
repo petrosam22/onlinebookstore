@@ -3,6 +3,7 @@ namespace App\Repositories;
 use App\Models\Post;
 use App\Models\User;
 use App\Jobs\SendWelcomeEmailJob;
+use Illuminate\Support\Facades\DB;
 use App\Traits\ValidatesImageTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -51,8 +52,12 @@ class UserRepositories implements UserRepositoryInterface {
 
         if(Auth::attempt(['email'=>$request->email, 'password'=>$request->password]))
         {
+            $user = User::where('email',$request->email)->first();
+            $token = $user->createToken('Api-Token')->plainTextToken;
             return[
-                'user'=>Auth::user()
+            'user'=>$user,
+            'token'=>$token,
+
             ];
         }else{
             return[
