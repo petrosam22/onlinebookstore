@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 trait ValidatesImageTrait
 {
     protected function validateImage(UploadedFile $file){
-        if($file ===null || !$file->isValid()){
+        if($file === null || !$file->isValid()){
       return response()->json(['error'=>'No file was uploaded'], 409);
         }
 
