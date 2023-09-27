@@ -11,7 +11,7 @@ class AuthorRepositories implements AuthorRepositoryInterface{
 use ValidatesImageTrait;
     public function createAuthor(AuthorRequest $request){
 
-            $image  = $this->validateImage($request->image);
+            $image  = $this->validateImage($request->image ,'user');
         $author = Author::create([
                 'name' => $request->name,
                 'description' => $request->description,
@@ -42,7 +42,7 @@ use ValidatesImageTrait;
         $author=Author::findOrFail($id);
 
         if($request->hasFile('image')){
-            $image = $this->validateImage($request->image);
+            $image = $this->validateImage($request->image,'user');
 
             $author->image = $image;
         }
@@ -79,8 +79,8 @@ use ValidatesImageTrait;
         $author = Author::findOrFail($id);
 
         $books = $author->books;
-        
-       
+
+
     if(!$books){
         return response()->json([
             'error'=>'The Author Has No Book'
@@ -89,7 +89,7 @@ use ValidatesImageTrait;
 
     }
 
-    
+
         return[
             'books'=>$books,
         ];

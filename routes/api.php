@@ -1,17 +1,20 @@
 <?php
 
+use App\Models\Book;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Middleware\IsAdmin;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api\BookController;
 use  App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\AuthorController;
 use App\Http\Controllers\api\CategoryController;
+use App\Http\Controllers\api\PublisherController;
 use App\Http\Controllers\api\ResetPasswordController;
 use App\Http\Controllers\api\ForgotPasswordController;
-use App\Http\Controllers\api\PublisherController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,6 +25,8 @@ use App\Http\Controllers\api\PublisherController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -49,19 +54,22 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('category')->group(function
     Route::get('/show/{id}', [CategoryController::class, 'show']);
 });
 
-// AuthorController
+
 
 Route::middleware(['auth:sanctum', 'admin'])->prefix('author')->group(function(){
-    Route::get('/all',[AuthorController::class,"index"]);
+
     Route::post('/create',[AuthorController::class,"create"]);
     Route::patch('/update/{id}',[AuthorController::class,"update"]);
     Route::delete('/delete/{id}',[AuthorController::class,"delete"]);
-    Route::get('/{id}',[AuthorController::class,"show"]);
-    Route::get('/{id}/books',[AuthorController::class,"authorBooks"]);
 });
 
 
+Route::middleware(['auth:sanctum'])->prefix('author')->group(function(){
 
+Route::get('/{id}/books',[AuthorController::class,"authorBooks"]);
+Route::get('/{id}',[AuthorController::class,"show"]);
+Route::get('/all',[AuthorController::class,"index"]);
+});
 
 Route::middleware(['auth:sanctum', 'admin'])->prefix('publisher')->group(function(){
     Route::get('/all',[PublisherController::class,"index"]);
@@ -75,3 +83,19 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('publisher')->group(functio
 
 
 });
+
+Route::middleware(['auth:sanctum' , 'admin'])->prefix('book')->group(function(){
+Route::post('/create' , [BookController::class ,'store']);
+Route::post('/update/{id}' , [BookController::class ,'update']);
+Route::delete('/delete/{id}' , [BookController::class ,'destroy']);
+Route::post('/{bookId}' , [BookController::class ,'addCategory']);
+
+});
+Route::get('book/{id}' , [BookController::class ,'show'])->middleware('auth:sanctum');
+Route::get('books' , [BookController::class ,'index'])->middleware('auth:sanctum');
+Route::get('books/category/{id}' , [BookController::class ,'bookCategory'])->middleware('auth:sanctum');
+
+
+
+
+

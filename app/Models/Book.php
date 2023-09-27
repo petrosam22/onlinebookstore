@@ -25,6 +25,7 @@ class Book extends Model
         'quantity',
         'category_id',
         'price',
+      
     ];
 
     public function categories()
@@ -33,7 +34,7 @@ class Book extends Model
     }
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
     public function publisher(){
         return $this->belongsTo(Publisher::class);
