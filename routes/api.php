@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Book;
+use App\Models\Cart;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\BookController;
+use App\Http\Controllers\api\CartController;
+use App\Http\Controllers\api\PostController;
 use  App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\AuthorController;
 use App\Http\Controllers\api\CategoryController;
@@ -86,7 +89,7 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('publisher')->group(functio
 
 Route::middleware(['auth:sanctum' , 'admin'])->prefix('book')->group(function(){
 Route::post('/create' , [BookController::class ,'store']);
-Route::post('/update/{id}' , [BookController::class ,'update']);
+Route::patch('/update/{id}' , [BookController::class ,'update']);
 Route::delete('/delete/{id}' , [BookController::class ,'destroy']);
 Route::post('/{bookId}' , [BookController::class ,'addCategory']);
 
@@ -97,5 +100,23 @@ Route::get('books/category/{id}' , [BookController::class ,'bookCategory'])->mid
 
 
 
+Route::middleware(['auth:sanctum'])->prefix('cart')->group(function(){
+Route::post('/create/{id}' , [CartController::class,'store']);
+Route::patch('/update/{id}/{bookId}' , [CartController::class,'update']);
+Route::get('/user/{id}' , [CartController::class,'userCarts']);
+Route::delete('/delete/{id}' , [CartController::class,'destroy']);
+Route::get('/{id}' , [CartController::class,'show']);
+});
 
 
+Route::middleware(['auth:sanctum'])->prefix('post')->group(function(){
+Route::post('/create' , [PostController::class,'store']);
+Route::post('/update/{id}' , [PostController::class,'update']);
+Route::get('/all' , [PostController::class,'index']);
+Route::get('/show/{id}' , [PostController::class,'show']);
+Route::get('/find/{id}' , [PostController::class,'find']);
+Route::delete('/delete/{id}' , [PostController::class,'destroy']);
+Route::get('/users' , [PostController::class,'usersPost']);
+Route::get('/user/{id}' , [PostController::class,'getPostsByUser']);
+
+});

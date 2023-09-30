@@ -6,12 +6,16 @@ namespace App\Providers;
 
 // use App\interfaces\PasswordRepositoryInterface;
 use App\Repositories\BookRepositories;
+use App\Repositories\CartRepositories;
+use App\Repositories\PostRepositories;
 use App\Repositories\UserRepositories;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\AuthorRepositories;
 use App\Repositories\PublisherRepository;
 use App\Repositories\CategoryRepositories;
 use App\interfaces\BookRepositoryInterface;
+use App\interfaces\CartRepositoryInterface;
+use App\interfaces\PostRepositoryInterface;
 use App\interfaces\UserRepositoryInterface;
 use App\interfaces\AuthorRepositoryInterface;
 use App\interfaces\CategoryRepositoryInterface;
@@ -35,6 +39,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(AuthorRepositoryInterface::class , AuthorRepositories::class);
         $this->app->bind(PublisherRepositoryInterface::class , PublisherRepository::class);
         $this->app->bind(BookRepositoryInterface::class , BookRepositories::class);
+        $this->app->bind(CartRepositoryInterface::class , CartRepositories::class);
+        $this->app->bind(PostRepositoryInterface::class , PostRepositories::class);
 
     }
 

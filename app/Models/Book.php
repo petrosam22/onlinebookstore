@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Models;
-use App\Models\User;
-use App\Models\Category;
-use App\Models\Author;
-use App\Models\Publisher;
+use App\Models\Cart;
 use App\Models\Rate;
+use App\Models\User;
+use App\Models\Author;
 use App\Models\Review;
+use App\Models\Category;
+use App\Models\Publisher;
 use App\Models\OrderProduct;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Book extends Model
 {
@@ -25,7 +26,7 @@ class Book extends Model
         'quantity',
         'category_id',
         'price',
-      
+
     ];
 
     public function categories()
@@ -59,5 +60,11 @@ class Book extends Model
     public function orderProducts()
     {
         return $this->hasMany(OrderProduct::class);
+    }
+
+
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class, 'book_cart');
     }
 }

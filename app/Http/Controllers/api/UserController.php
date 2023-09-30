@@ -8,7 +8,8 @@ use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\interfaces\UserRepositoryInterface;
-
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
+use RuntimeException;
 class UserController extends Controller
 {
     private UserRepositoryInterface $UserRepository;
@@ -20,6 +21,7 @@ class UserController extends Controller
 
     public function storeUser(CreateUserRequest $request){
         $response =     $this->UserRepository->register($request);
+
         return response()->json([
             'user' => $response['user'],
             'token' => $response['token'],
@@ -28,6 +30,7 @@ class UserController extends Controller
     }
 
     public function login(LoginUserRequest $request){
+
         $response = $this->UserRepository->login($request);
 
         if(isset($response['error'])){
@@ -56,8 +59,8 @@ class UserController extends Controller
     }
 
 
-    public function logout(Request $request){
-        $response = $this->UserRepository->logout($request);
+    public function logout(){
+        $response = $this->UserRepository->logout();
 
 
         return response()->json([

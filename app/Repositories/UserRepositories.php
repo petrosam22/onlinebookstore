@@ -19,7 +19,7 @@ class UserRepositories implements UserRepositoryInterface {
         $image = null;
 
         if ($request->hasFile('image')) {
-            $image = $this->validateImage($request->file('image'));
+            $image = $this->validateImage($request->file('image'),'user');
         }
 
 
@@ -78,7 +78,7 @@ class UserRepositories implements UserRepositoryInterface {
 
         if ($request->hasFile('image')) {
 
-            $image = $this->validateImage($request->file('image'));
+            $image = $this->validateImage($request->file('image'),'user');
             $user->image = $image;
 
         }
