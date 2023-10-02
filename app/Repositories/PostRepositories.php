@@ -40,7 +40,7 @@ class PostRepositories implements PostRepositoryInterface {
 
 
     public function allPost(){
-        $posts = Post::all();
+        $posts = Post::with('comments')->get();
         return $posts;
     }
 

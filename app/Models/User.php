@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Refund;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Review;
+use App\Models\Comment;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -73,6 +74,9 @@ class User extends Authenticatable
 
     public function carts(){
         return $this->hasMany(Cart::class);
+    }
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
 
 

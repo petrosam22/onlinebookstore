@@ -11,13 +11,17 @@ use App\Repositories\PostRepositories;
 use App\Repositories\UserRepositories;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\AuthorRepositories;
+use App\Repositories\CommentRepositories;
 use App\Repositories\PublisherRepository;
 use App\Repositories\CategoryRepositories;
 use App\interfaces\BookRepositoryInterface;
 use App\interfaces\CartRepositoryInterface;
 use App\interfaces\PostRepositoryInterface;
 use App\interfaces\UserRepositoryInterface;
+
+
 use App\interfaces\AuthorRepositoryInterface;
+use App\interfaces\CommentRepositoryInterface;
 use App\interfaces\CategoryRepositoryInterface;
 use App\Repositories\ResetPasswordRepositories;
 use App\interfaces\PublisherRepositoryInterface;
@@ -41,6 +45,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(BookRepositoryInterface::class , BookRepositories::class);
         $this->app->bind(CartRepositoryInterface::class , CartRepositories::class);
         $this->app->bind(PostRepositoryInterface::class , PostRepositories::class);
+        $this->app->bind(CommentRepositoryInterface::class , CommentRepositories::class);
 
     }
 

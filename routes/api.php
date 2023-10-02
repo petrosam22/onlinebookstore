@@ -14,6 +14,7 @@ use App\Http\Controllers\api\CartController;
 use App\Http\Controllers\api\PostController;
 use  App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\AuthorController;
+use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\PublisherController;
 use App\Http\Controllers\api\ResetPasswordController;
@@ -119,4 +120,13 @@ Route::delete('/delete/{id}' , [PostController::class,'destroy']);
 Route::get('/users' , [PostController::class,'usersPost']);
 Route::get('/user/{id}' , [PostController::class,'getPostsByUser']);
 
+});
+// CommentController
+Route::middleware(['auth:sanctum'])->prefix('comment')->group(function(){
+Route::get('/all' , [CommentController::class ,'index']);
+Route::post('/store/{id}' , [CommentController::class ,'store']);
+Route::patch('/update/{id}' , [CommentController::class ,'update']);
+Route::delete('/delete/{id}' , [CommentController::class ,'destroy']);
+Route::get('/user/{id}' , [CommentController::class ,'userComments']);
+Route::get('/post/{id}' , [CommentController::class ,'listCommentsPost']);
 });
