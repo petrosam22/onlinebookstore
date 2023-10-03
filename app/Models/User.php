@@ -8,6 +8,7 @@ use App\Models\Rate;
 use App\Models\Order;
 use App\Models\Refund;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Replay;
 use App\Models\Review;
 use App\Models\Comment;
 use Laravel\Sanctum\HasApiTokens;
@@ -78,6 +79,8 @@ class User extends Authenticatable
     public function comments(){
         return $this->hasMany(Comment::class);
     }
-
+    public function replays(){
+        return $this->hasMany(Replay::class);
+    }
 
 }

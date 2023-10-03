@@ -4,6 +4,8 @@ use App\Models\Book;
 use App\Models\Cart;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Replay;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\DB;
@@ -14,11 +16,14 @@ use App\Http\Controllers\api\CartController;
 use App\Http\Controllers\api\PostController;
 use  App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\AuthorController;
+use App\Http\Controllers\api\ReplayController;
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\PublisherController;
 use App\Http\Controllers\api\ResetPasswordController;
 use App\Http\Controllers\api\ForgotPasswordController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -123,10 +128,20 @@ Route::get('/user/{id}' , [PostController::class,'getPostsByUser']);
 });
 // CommentController
 Route::middleware(['auth:sanctum'])->prefix('comment')->group(function(){
-Route::get('/all' , [CommentController::class ,'index']);
-Route::post('/store/{id}' , [CommentController::class ,'store']);
+    Route::get('/all' , [CommentController::class ,'index']);
+    Route::post('/store/{id}' , [CommentController::class ,'store']);
 Route::patch('/update/{id}' , [CommentController::class ,'update']);
 Route::delete('/delete/{id}' , [CommentController::class ,'destroy']);
 Route::get('/user/{id}' , [CommentController::class ,'userComments']);
 Route::get('/post/{id}' , [CommentController::class ,'listCommentsPost']);
 });
+
+Route::middleware(['auth:sanctum'])->prefix('replay')->group(function(){
+Route::get('all' , [ReplayController::class,'index']);
+Route::post('/store/{id}' , [ReplayController::class,'store']);
+Route::patch('/update/{replay}' , [ReplayController::class,'update']);
+Route::delete('/delete/{replay}' , [ReplayController::class,'destroy']);
+});
+
+
+
