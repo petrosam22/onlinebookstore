@@ -9,11 +9,13 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\BookController;
 use App\Http\Controllers\api\CartController;
 use App\Http\Controllers\api\PostController;
+use App\Http\Controllers\api\RateController;
 use  App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\AuthorController;
 use App\Http\Controllers\api\ReplayController;
@@ -22,7 +24,6 @@ use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\PublisherController;
 use App\Http\Controllers\api\ResetPasswordController;
 use App\Http\Controllers\api\ForgotPasswordController;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,11 +138,18 @@ Route::get('/post/{id}' , [CommentController::class ,'listCommentsPost']);
 });
 
 Route::middleware(['auth:sanctum'])->prefix('replay')->group(function(){
-Route::get('all' , [ReplayController::class,'index']);
-Route::post('/store/{id}' , [ReplayController::class,'store']);
+    Route::get('all' , [ReplayController::class,'index']);
+    Route::post('/store/{id}' , [ReplayController::class,'store']);
 Route::patch('/update/{replay}' , [ReplayController::class,'update']);
 Route::delete('/delete/{replay}' , [ReplayController::class,'destroy']);
 });
 
 
 
+Route::middleware(['auth:sanctum'])->prefix('rate')->group(function(){
+Route::post('/store/{book}' , [RateController::class,'store']);
+Route::patch('/update/{id}' , [RateController::class,'update']);
+Route::delete('/delete/{id}' , [RateController::class,'destroy']);
+Route::get('/all' , [RateController::class,'index']);
+Route::get('/book/{book}' , [RateController::class,'bookRates']);
+});

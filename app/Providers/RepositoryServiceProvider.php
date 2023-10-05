@@ -8,6 +8,7 @@ namespace App\Providers;
 use App\Repositories\BookRepositories;
 use App\Repositories\CartRepositories;
 use App\Repositories\PostRepositories;
+use App\Repositories\RateRepositories;
 use App\Repositories\UserRepositories;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\AuthorRepositories;
@@ -17,9 +18,10 @@ use App\Repositories\PublisherRepository;
 use App\Repositories\CategoryRepositories;
 use App\interfaces\BookRepositoryInterface;
 use App\interfaces\CartRepositoryInterface;
+
+
 use App\interfaces\PostRepositoryInterface;
-
-
+use App\interfaces\RateRepositoryInterface;
 use App\interfaces\UserRepositoryInterface;
 use App\interfaces\AuthorRepositoryInterface;
 use App\interfaces\ReplayRepositoryInterface;
@@ -49,6 +51,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(PostRepositoryInterface::class , PostRepositories::class);
         $this->app->bind(CommentRepositoryInterface::class , CommentRepositories::class);
         $this->app->bind(ReplayRepositoryInterface::class , ReplayRepositories::class);
+        $this->app->bind(RateRepositoryInterface::class , RateRepositories::class);
 
     }
 
