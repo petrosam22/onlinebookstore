@@ -46,8 +46,7 @@ class ForgotPasswordMail extends Mailable
         return new Content(
             markdown:'emails.forgetPasswordEmail',
             with: [
-                // 'user' => $this->user,
-                'token' => $this->token
+                 'token' => $this->token
             ]
                 );
     }

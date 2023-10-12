@@ -25,8 +25,8 @@ class Review extends Model
     public function book(){
         return $this->belongsTo(Book::class);
     }
-    public function rates(){
-        return $this->hasMany(Rate::class);
+    public function rate(){
+        return $this->belongsTo(Rate::class);
     }
 
 

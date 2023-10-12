@@ -15,7 +15,7 @@ class ForgetPasswordRepositories implements ForgetPasswordRepositoryInterface {
 
 
         $user = User::where('email', $request->email)->first();
-      
+
         if(!$user){
             return response()->json([
                 'error'=> 'email not found'

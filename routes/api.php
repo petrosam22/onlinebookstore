@@ -19,6 +19,7 @@ use App\Http\Controllers\api\RateController;
 use  App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\AuthorController;
 use App\Http\Controllers\api\ReplayController;
+use App\Http\Controllers\api\ReviewController;
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\PublisherController;
@@ -147,9 +148,21 @@ Route::delete('/delete/{replay}' , [ReplayController::class,'destroy']);
 
 
 Route::middleware(['auth:sanctum'])->prefix('rate')->group(function(){
-Route::post('/store/{book}' , [RateController::class,'store']);
-Route::patch('/update/{id}' , [RateController::class,'update']);
+    Route::post('/store/{book}' , [RateController::class,'store']);
+    Route::patch('/update/{id}' , [RateController::class,'update']);
 Route::delete('/delete/{id}' , [RateController::class,'destroy']);
 Route::get('/all' , [RateController::class,'index']);
 Route::get('/book/{book}' , [RateController::class,'bookRates']);
+Route::get('/calc/{book}' , [RateController::class,'calculateBookRate']);
+});
+
+Route::middleware(['auth:sanctum'])->prefix('review')->group(function(){
+
+Route::post('/store', [ReviewController::class,'store']);
+Route::post('/update/{id}', [ReviewController::class,'update']);
+
+
+Route::get('/book/{book}', [ReviewController::class,'bookReviews']);
+Route::get('/all', [ReviewController::class,'index']);
+Route::delete('/delete/{id}', [ReviewController::class,'destroy']);
 });

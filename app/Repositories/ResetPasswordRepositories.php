@@ -13,8 +13,8 @@ class ResetPasswordRepositories implements ResetPasswordRepositoriesInterface {
 
 public function reset(User $user, UserForgetPassword $request)
 {
-    // $user =
 
+    
 $tokenData =     DB::table('password_resets')
     ->where('email',$request->email)
     ->where('token',$request->token);

@@ -15,5 +15,6 @@ interface RateRepositoryInterface{
     public function deleteRate($id);
     public function Rates();
     public function bookRates(Book $book);
+    public function calculateBookRate(Book $book);
 
 }
