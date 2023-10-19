@@ -4,11 +4,11 @@ namespace App\Models;
 use App\Models\Cart;
 use App\Models\Rate;
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Author;
 use App\Models\Review;
 use App\Models\Category;
 use App\Models\Publisher;
-use App\Models\OrderProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -57,14 +57,17 @@ class Book extends Model
     }
 
 
-    public function orderProducts()
-    {
-        return $this->hasMany(OrderProduct::class);
-    }
 
 
     public function carts()
     {
         return $this->belongsToMany(Cart::class, 'book_cart');
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'book_orders')
+        ->withTimestamps();
+    }
+
 }

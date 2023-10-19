@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\api\BookController;
 use App\Http\Controllers\api\CartController;
 use App\Http\Controllers\api\PostController;
@@ -165,4 +166,14 @@ Route::post('/update/{id}', [ReviewController::class,'update']);
 Route::get('/book/{book}', [ReviewController::class,'bookReviews']);
 Route::get('/all', [ReviewController::class,'index']);
 Route::delete('/delete/{id}', [ReviewController::class,'destroy']);
+});
+
+
+
+Route::middleware(['auth:sanctum'])->prefix('order')->group(function(){
+Route::post('/create', [OrderController::class,'store']);
+Route::patch('/update/{id}', [OrderController::class,'update']);
+Route::post('/stripe/{order}', [OrderController::class,'stripe']);
+
+
 });

@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('order_statuses', function (Blueprint $table) {
             $table->id();
+            $table->string('status')->default('pending');
             $table->foreignId('user_id')->constrained();
-            $table->text('book_ids'); // Define the book_ids column as text
-            $table->integer('number');
-           $table->string('payment');
-           $table->text('quantities');
-           $table->decimal('discounts')->default(0.00);
-           $table->decimal('total_products');
-            $table->decimal('total',8,2);
+
+
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('order_statuses');
     }
 };

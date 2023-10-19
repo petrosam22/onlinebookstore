@@ -73,7 +73,6 @@ class ReviewRepositories implements ReviewRepositoryInterface{
     public function allReview(){
         $reviews = Review::with('rate')->first();
 
-        // $reviews->rate;
         return response()->json([
             'data'=>$reviews,
             'length'=>$reviews->count(),

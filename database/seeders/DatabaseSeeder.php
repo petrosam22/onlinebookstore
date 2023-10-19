@@ -16,7 +16,7 @@ use Database\Seeders\ReviewTableSeeder;
 use Database\Seeders\CommentTableSeeder;
 use Database\Seeders\CategoryTableSeeder;
 use Database\Seeders\publisherTableSeeder;
-use Database\Seeders\OrderProductTableSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -34,7 +34,6 @@ class DatabaseSeeder extends Seeder
             CartTableSeeder::class,
             PostTableSeeder::class,
             OrderTableSeeder::class,
-            OrderProductTableSeeder::class,
             RateTableSeeder::class,
             RefundTableSeeder::class,
             ReviewTableSeeder::class,
