@@ -73,8 +73,15 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Order $order)
     {
-        //
+        $order = $this->OrderRepositories->deleteOrder($order);
+
+        return $order;
+    }
+    public function closeOrder(){
+        $orderClose = $this->OrderRepositories->closeOrder();
+        return $orderClose;
+
     }
 }

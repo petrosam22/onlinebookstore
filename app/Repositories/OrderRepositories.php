@@ -2,20 +2,21 @@
 
 namespace App\Repositories;
 
+use Stripe\Stripe;
 use App\Models\Book;
 use App\Models\Order;
+use Stripe\StripeClient;
+use Stripe\PaymentIntent;
 use App\Models\OrderStatus;
+use App\Models\OrderDeliver;
+use Illuminate\Http\Request;
+use App\Enums\OrderStatusEnum;
+
 use App\Jobs\SendOrderEmailJob;
 use App\Http\Requests\OrderRequest;
 use Illuminate\Support\Facades\Auth;
-use App\interfaces\OrderRepositoryInterface;
 use App\Http\Requests\UpdateOrderRequest;
-use App\Enums\OrderStatusEnum;
-
-use Illuminate\Http\Request;
-use Stripe\Stripe;
-use Stripe\PaymentIntent;
-use Stripe\StripeClient;
+use App\interfaces\OrderRepositoryInterface;
 
 class OrderRepositories implements OrderRepositoryInterface {
     public function createOrder(OrderRequest $request){
@@ -26,7 +27,7 @@ class OrderRepositories implements OrderRepositoryInterface {
         $orderStatus = OrderStatus::where('status' , 'pending')->first();
 
 
-        
+
 
         $totalPrices = $bookIds->map(function ($bookId, $index) use ($quantities, $bookPrices) {
             $quantity = $quantities[$index];
@@ -152,4 +153,20 @@ public function purchase(Request $request,Order $order)
     // Return the client secret to complete the purchase on the client-side
     return response()->json(['client_secret' => $paymentIntent]);
 }
+public function deleteOrder(Order $order){
+    $order->delete();
+    return response()->json([
+
+        'message'=>"Order Deleted Successfully"
+    ]);
+}
+
+public function closeOrder(){
+$orderDeliver = OrderDeliver::findOrFail(3);
+
+dd($orderDeliver->order);
+
+
+}
+
 }

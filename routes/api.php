@@ -25,6 +25,7 @@ use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\PublisherController;
 use App\Http\Controllers\api\OrderStatusController;
+use App\Http\Controllers\api\OrderDeliverController;
 use App\Http\Controllers\api\ResetPasswordController;
 use App\Http\Controllers\api\ForgotPasswordController;
 
@@ -175,6 +176,8 @@ Route::middleware(['auth:sanctum'])->prefix('order')->group(function(){
 Route::post('/create', [OrderController::class,'store']);
 Route::patch('/update/{id}', [OrderController::class,'update']);
 Route::post('/stripe/{order}', [OrderController::class,'stripe']);
+Route::delete('/delete/{order}', [OrderController::class,'destroy']);
+Route::post('/close', [OrderController::class,'closeOrder']);
 
 
 });
@@ -193,3 +196,14 @@ Route::get('/orders/{id}',[OrderStatusController::class,'ordersByStatusId']);
 
 });
 
+Route::middleware(['auth:sanctum','admin'])->prefix('OrderDeliver')->group(function(){
+Route::post('/store/{order}',[OrderDeliverController::class , 'store']);
+Route::get('/all',[OrderDeliverController::class , 'index']);
+Route::patch('/update/{id}',[OrderDeliverController::class , 'update']);
+Route::delete('/delete/{id}',[OrderDeliverController::class , 'destroy']);
+
+
+
+
+
+});

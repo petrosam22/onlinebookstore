@@ -53,6 +53,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function routeNotificationForMail()
+{
+    return $this->email;
+}
+
     public function books(){
         return $this->hasMany(Book::class);
     }

@@ -5,6 +5,7 @@ use App\Models\Book;
 use App\Models\User;
 use App\Models\Refund;
 
+use App\Models\OrderDeliver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -43,6 +44,11 @@ class Order extends Model
         return $this->belongsToMany(Book::class, 'book_orders')
         ->withPivot('book_id')
         ->withTimestamps();
+    }
+
+    public function OrderDeliver(){
+        return $this->hasMany(OrderDeliver::class);
+
     }
 
     protected static function boot()

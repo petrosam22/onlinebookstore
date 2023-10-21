@@ -14,9 +14,10 @@ class OrderDelivered extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    private $order;
+    public function __construct($order)
     {
-        //
+        $this->order = $order;
     }
 
     /**
@@ -26,7 +27,7 @@ class OrderDelivered extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['mail' , 'database'];
     }
 
     /**
@@ -34,9 +35,12 @@ class OrderDelivered extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        
+
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+        ->line('Order ID: ' . $this->order['id'])
+        ->line('User: ' . $this->order['user'])
+                ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
     }
 
@@ -48,6 +52,7 @@ class OrderDelivered extends Notification
     public function toArray(object $notifiable): array
     {
         return [
+
             'subject' => 'Order Delivered',
             'message' => 'Your order has been delivered successfully.',
         ];

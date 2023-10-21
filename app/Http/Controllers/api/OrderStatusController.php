@@ -13,7 +13,7 @@ class OrderStatusController extends Controller
      * Display a listing of the resource.
      */
 
-     public OrderStatusRepositoryInterface $OrderStatusRepository;
+     private OrderStatusRepositoryInterface $OrderStatusRepository;
 
      public function __construct(OrderStatusRepositoryInterface $OrderStatusRepository) {
         $this->OrderStatusRepository = $OrderStatusRepository;
@@ -33,11 +33,8 @@ class OrderStatusController extends Controller
 
     public function changeStatus(Order $order,Request $request){
         $orderStatus = $this->OrderStatusRepository->changeOrderStatus($order,$request);
-    //  if(isset($orderStatus['error'])){
-    //     return response()->json([
-    //         'error'=>$orderStatus['error']
-    //    ]);
-    //  }
+
+
 
         return $orderStatus;
 

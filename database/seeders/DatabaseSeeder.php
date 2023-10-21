@@ -26,18 +26,19 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            UserTableSeeder::class,
-            AuthorTableSeeder::class,
-            publisherTableSeeder::class,
-            CategoryTableSeeder::class,
-            BookTableSeeder::class,
-            CartTableSeeder::class,
-            PostTableSeeder::class,
-            OrderTableSeeder::class,
-            RateTableSeeder::class,
-            RefundTableSeeder::class,
-            ReviewTableSeeder::class,
-            CommentTableSeeder::class,
+            OrderStatusSeeder::class,
+            // UserTableSeeder::class,
+            // AuthorTableSeeder::class,
+            // publisherTableSeeder::class,
+            // CategoryTableSeeder::class,
+            // BookTableSeeder::class,
+            // CartTableSeeder::class,
+            // PostTableSeeder::class,
+            // OrderTableSeeder::class,
+            // RateTableSeeder::class,
+            // RefundTableSeeder::class,
+            // ReviewTableSeeder::class,
+            // CommentTableSeeder::class,
 
         ]);
     }
