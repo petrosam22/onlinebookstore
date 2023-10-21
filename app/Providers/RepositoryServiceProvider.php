@@ -29,11 +29,13 @@ use App\interfaces\OrderRepositoryInterface;
 use App\interfaces\AuthorRepositoryInterface;
 use App\interfaces\ReplayRepositoryInterface;
 use App\interfaces\ReviewRepositoryInterface;
+use App\Repositories\OrderStatusRepositories;
 use App\interfaces\CommentRepositoryInterface;
 use App\interfaces\CategoryRepositoryInterface;
 use App\Repositories\ResetPasswordRepositories;
 use App\interfaces\PublisherRepositoryInterface;
 use App\Repositories\ForgetPasswordRepositories;
+use App\interfaces\OrderStatusRepositoryInterface;
 use App\interfaces\ForgetPasswordRepositoryInterface;
 use App\interfaces\ResetPasswordRepositoriesInterface;
 
@@ -59,6 +61,9 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(ReviewRepositoryInterface::class , ReviewRepositories::class);
         $this->app->bind(OrderRepositoryInterface::class , OrderRepositories::class);
+
+
+        $this->app->bind(OrderStatusRepositoryInterface::class , OrderStatusRepositories::class);
     }
 
     /**

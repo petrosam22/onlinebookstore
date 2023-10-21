@@ -21,9 +21,13 @@ class Order extends Model
         'payment',
         'discounts',
         'total_products',
-        'total'
+        'total',
+        'order_status_id'
     ];
-
+    public function orderStatus()
+    {
+        return $this->belongsTo(OrderStatus::class);
+    }
 
     public function user(){
         return $this->belongsTo(User::class);

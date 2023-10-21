@@ -24,6 +24,7 @@ use App\Http\Controllers\api\ReviewController;
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\PublisherController;
+use App\Http\Controllers\api\OrderStatusController;
 use App\Http\Controllers\api\ResetPasswordController;
 use App\Http\Controllers\api\ForgotPasswordController;
 
@@ -177,3 +178,18 @@ Route::post('/stripe/{order}', [OrderController::class,'stripe']);
 
 
 });
+
+
+
+Route::middleware(['auth:sanctum','admin'])->prefix('orderStatus')->group(function(){
+Route::get('/all',[OrderStatusController::class,'index']);
+Route::post('/store',[OrderStatusController::class,'store']);
+Route::patch('/update/{id}',[OrderStatusController::class,'update']);
+Route::delete('/delete/{id}',[OrderStatusController::class,'destroy']);
+Route::post('/changeStatus/{order}',[OrderStatusController::class,'changeStatus']);
+
+
+Route::get('/orders/{id}',[OrderStatusController::class,'ordersByStatusId']);
+
+});
+

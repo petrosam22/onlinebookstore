@@ -24,10 +24,11 @@ class OrderRequest extends FormRequest
         return [
             'number'=>'required|integer',
             'payment'=>'required',
+
             'discounts'=>'required',
-            'total_products'=>'required|integer',
 
             
+
         ];
     }
 }

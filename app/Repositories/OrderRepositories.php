@@ -4,11 +4,13 @@ namespace App\Repositories;
 
 use App\Models\Book;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Jobs\SendOrderEmailJob;
 use App\Http\Requests\OrderRequest;
 use Illuminate\Support\Facades\Auth;
 use App\interfaces\OrderRepositoryInterface;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Enums\OrderStatusEnum;
 
 use Illuminate\Http\Request;
 use Stripe\Stripe;
@@ -17,11 +19,14 @@ use Stripe\StripeClient;
 
 class OrderRepositories implements OrderRepositoryInterface {
     public function createOrder(OrderRequest $request){
-        $books = Book::whereIn('id', $request->book_ids)->get();
+         $books = Book::whereIn('id', $request->book_ids)->get();
         $bookIds = $books->pluck('id');
         $bookPrices = $books->pluck('price')->toArray();
         $quantities = $request->quantities;
+        $orderStatus = OrderStatus::where('status' , 'pending')->first();
 
+
+        
 
         $totalPrices = $bookIds->map(function ($bookId, $index) use ($quantities, $bookPrices) {
             $quantity = $quantities[$index];
@@ -38,7 +43,8 @@ class OrderRepositories implements OrderRepositoryInterface {
         'discounts'=>$request->discounts,
         'total_products'=>$books->count(),
         'total'=>$totalPrices,
-        'quantities'=>json_encode($quantities)
+        'quantities'=>json_encode($quantities),
+        'order_status_id'=>$orderStatus->id
 ]);
 
         $this->attachBooksToOrder($order, $bookIds, $quantities, $bookPrices);
@@ -117,10 +123,10 @@ public function updateOrder($id,UpdateOrderRequest $request){
 public function purchase(Request $request,Order $order)
 {
 
-    
 
-    
-    
+
+
+
     $stripe = new StripeClient(env('STRIPE_SECRET'));
     $amountInCents = (int) ($order->total); // Convert to cents and cast to integer
 
@@ -134,12 +140,12 @@ public function purchase(Request $request,Order $order)
             'order_id' => $order->id,
         ],
     ]);
-    
 
 
-    
 
-     
+
+
+
 
 
 
