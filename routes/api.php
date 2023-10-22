@@ -177,7 +177,7 @@ Route::post('/create', [OrderController::class,'store']);
 Route::patch('/update/{id}', [OrderController::class,'update']);
 Route::post('/stripe/{order}', [OrderController::class,'stripe']);
 Route::delete('/delete/{order}', [OrderController::class,'destroy']);
-Route::post('/close', [OrderController::class,'closeOrder']);
+Route::post('/close/{order}', [OrderController::class,'closeOrder']);
 
 
 });

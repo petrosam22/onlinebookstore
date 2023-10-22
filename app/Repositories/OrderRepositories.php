@@ -161,12 +161,33 @@ public function deleteOrder(Order $order){
     ]);
 }
 
-public function closeOrder(){
-$orderDeliver = OrderDeliver::findOrFail(3);
+public function closeOrder(Order $order){
+    $orderDeliver = OrderDeliver::where('order_id',$order->id)->first();
 
-dd($orderDeliver->order);
+    $order = Order::where('id',$orderDeliver->order_id)->first();
+     $orderStatus = OrderStatus::where('status','delivered')->first();
 
+        $order->order_status_id = $orderStatus->id;
+        $order->save();
+
+return $order;
+
+
+
+// $orderDeliver = OrderDeliver::all()->pluck('order_id');
+// $OrderStatus = OrderStatus::where('status' , 'delivered')->first();
+// $orders = Order::whereIn('id',$orderDeliver)->get();
+// foreach($orders as $order){
+// $order->order_status_id  =$OrderStatus->id;
+// $order->save();
+// }
+// return $orders;
 
 }
 
 }
+
+
+/*
+
+*/

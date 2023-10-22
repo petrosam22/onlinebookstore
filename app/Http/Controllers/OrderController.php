@@ -79,8 +79,8 @@ class OrderController extends Controller
 
         return $order;
     }
-    public function closeOrder(){
-        $orderClose = $this->OrderRepositories->closeOrder();
+    public function closeOrder(Order $order){
+        $orderClose = $this->OrderRepositories->closeOrder($order);
         return $orderClose;
 
     }

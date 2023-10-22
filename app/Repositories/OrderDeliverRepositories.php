@@ -20,24 +20,30 @@ class OrderDeliverRepositories implements OrderDeliverRepositoryInterface {
 
     public function createOrderDeliver(Order $order, Request $request){
 
+        $existingDeliver = OrderDeliver::where('order_id',$order->id)->first();
+        if($existingDeliver){
+            return response()->json([
 
+                'message'=>'Order has already been delivered'
+            ]);
+        }
 
         $OrderDeliver = OrderDeliver::create([
             'order_id'=>$order->id,
             'delivered_at'=>Date::now()
         ]);
 
-        //
 
-        $orderStatus = OrderStatus::where('status','delivered')->first();
 
-        $order->order_status_id = $orderStatus->id;
-        $order->save();
+        // $orderStatus = OrderStatus::where('status','delivered')->first();
+
+        // $order->order_status_id = $orderStatus->id;
+        // $order->save();
 
 
 
         $user = $order->user;
-        Notification::send($user, new OrderDelivered($order));
+        // Notification::send($user, new OrderDelivered($order));
 
 
         return response()->json([

@@ -16,7 +16,7 @@ interface OrderRepositoryInterface {
     public function purchase(Request $request, Order $order);
 
     public function deleteOrder(Order $order);
-    public function closeOrder();
+    public function closeOrder(Order $order);
         //softdelete
 
 }
