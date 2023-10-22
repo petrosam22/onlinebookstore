@@ -35,15 +35,12 @@ class OrderDeliverRepositories implements OrderDeliverRepositoryInterface {
 
 
 
-        // $orderStatus = OrderStatus::where('status','delivered')->first();
 
-        // $order->order_status_id = $orderStatus->id;
-        // $order->save();
 
 
 
         $user = $order->user;
-        // Notification::send($user, new OrderDelivered($order));
+        Notification::send($user, new OrderDelivered($order));
 
 
         return response()->json([

@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('order_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('order_product_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('book_order_id')->constrained()->cascadeOnDelete();
             $table->float('amount' , 8,2);
             $table->integer('refund_number');
             $table->integer('quantity');

@@ -19,6 +19,7 @@ use App\Http\Controllers\api\PostController;
 use App\Http\Controllers\api\RateController;
 use  App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\AuthorController;
+use App\Http\Controllers\api\RefundController;
 use App\Http\Controllers\api\ReplayController;
 use App\Http\Controllers\api\ReviewController;
 use App\Http\Controllers\api\CommentController;
@@ -202,8 +203,13 @@ Route::get('/all',[OrderDeliverController::class , 'index']);
 Route::patch('/update/{id}',[OrderDeliverController::class , 'update']);
 Route::delete('/delete/{id}',[OrderDeliverController::class , 'destroy']);
 
+});
 
 
 
+Route::middleware(['auth:sanctum'])->prefix('refund')->group(function(){
+Route::post('/create/{order}' ,[RefundController::class,'store']);
+Route::post('/update/{refund}' ,[RefundController::class,'update']);
 
 });
+

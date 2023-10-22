@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Models;
+use App\Models\Book;
 use App\Models\User;
 use App\Models\Order;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Refund extends Model
 {
@@ -13,10 +14,12 @@ class Refund extends Model
     protected $fillable =
     [
         'user_id',
-        'order_product_id',
-        'amount',
+        'order_id',
+        'book_order_id',
+        'amount' ,
         'refund_number' ,
-        'quantity' ,
+        'quantity',
+        'book_id',
         'status'
     ];
 
@@ -31,6 +34,10 @@ class Refund extends Model
     {
         return $this->belongsTo(Order::class);
     }
+    public function books()
+    {
+        return $this->belongsTo(Book::class);
+    }
 
-   
+
 }

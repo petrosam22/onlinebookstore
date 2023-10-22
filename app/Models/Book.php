@@ -6,6 +6,7 @@ use App\Models\Rate;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Author;
+use App\Models\Refund;
 use App\Models\Review;
 use App\Models\Category;
 use App\Models\Publisher;
@@ -68,6 +69,11 @@ class Book extends Model
     {
         return $this->belongsToMany(Order::class, 'book_orders')
         ->withTimestamps();
+    }
+
+    public function refund()
+    {
+        return $this->hasMany(Refund::class);
     }
 
 }

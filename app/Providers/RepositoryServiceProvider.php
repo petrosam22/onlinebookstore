@@ -13,13 +13,14 @@ use App\Repositories\UserRepositories;
 use App\Repositories\OrderRepositories;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\AuthorRepositories;
+use App\Repositories\RefundRepositories;
 use App\Repositories\ReplayRepositories;
 use App\Repositories\ReviewRepositories;
 use App\Repositories\CommentRepositories;
 use App\Repositories\PublisherRepository;
+
+
 use App\Repositories\CategoryRepositories;
-
-
 use App\interfaces\BookRepositoryInterface;
 use App\interfaces\CartRepositoryInterface;
 use App\interfaces\PostRepositoryInterface;
@@ -27,6 +28,7 @@ use App\interfaces\RateRepositoryInterface;
 use App\interfaces\UserRepositoryInterface;
 use App\interfaces\OrderRepositoryInterface;
 use App\interfaces\AuthorRepositoryInterface;
+use App\interfaces\RefundRepositoryInterface;
 use App\interfaces\ReplayRepositoryInterface;
 use App\interfaces\ReviewRepositoryInterface;
 use App\Repositories\OrderStatusRepositories;
@@ -69,6 +71,9 @@ class RepositoryServiceProvider extends ServiceProvider
 
 
         $this->app->bind(OrderDeliverRepositoryInterface::class , OrderDeliverRepositories::class);
+
+
+        $this->app->bind(RefundRepositoryInterface::class , RefundRepositories::class);
 
     }
 
