@@ -12,5 +12,6 @@ interface RefundRepositoryInterface {
     public function createRefund(Order $order,RefundRequest $request);
 
     public function updateRefund(Refund $refund, RefundRequest $request);
+    public function orderRefunded();
 
 }

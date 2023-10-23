@@ -115,8 +115,8 @@ Route::post('/{bookId}' , [BookController::class ,'addCategory']);
 
 //User
 Route::middleware(['auth:sanctum','throttle:api'])->prefix('books')->group(function(){
-Route::get('/{id}' , [BookController::class ,'show'])->middleware('auth:sanctum');
-Route::get('/all' , [BookController::class ,'index'])->middleware('auth:sanctum');
+Route::get('/{id}' , [BookController::class ,'show']);
+Route::get('/' , [BookController::class ,'index']);
 Route::get('/category/{id}' , [BookController::class ,'bookCategory'])->middleware('auth:sanctum');
 });
 
@@ -229,6 +229,7 @@ Route::delete('/delete/{id}',[OrderDeliverController::class , 'destroy']);
 Route::middleware(['auth:sanctum','throttle:api'])->prefix('refund')->group(function(){
 Route::post('/create/{order}' ,[RefundController::class,'store']);
 Route::post('/update/{refund}' ,[RefundController::class,'update']);
+Route::get('/orders' ,[RefundController::class,'orderThatRefund']);
 
 });
 

@@ -32,4 +32,13 @@ class RefundController extends Controller
         return $updateRefund;
 
     }
+
+    public function orderThatRefund(){
+        $orderRefund = $this->RefundRepositories->orderRefunded();
+
+        return $orderRefund;
+
+
+    }
+
 }

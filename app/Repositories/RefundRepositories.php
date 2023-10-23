@@ -13,7 +13,7 @@ use App\interfaces\RefundRepositoryInterface;
 
 class RefundRepositories implements RefundRepositoryInterface {
 
-    // TODO: Implement createRefund() method.
+
     public function createRefund(Order $order,RefundRequest $request){
 
             $bookOrder = DB::table('book_orders')
@@ -57,6 +57,7 @@ class RefundRepositories implements RefundRepositoryInterface {
 
             $order->quantities = json_encode($quantities);
             $order->total = $total;
+            $order->is_refund = true;
             $order->save();
 
             return response()->json([
@@ -126,4 +127,11 @@ class RefundRepositories implements RefundRepositoryInterface {
     ]);
 }
 
+
+public function orderRefunded(){
+
+    $orders = Order::where('is_refund',true)->get();
+    return $orders;
+
+}
 }

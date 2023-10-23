@@ -23,7 +23,8 @@ class Order extends Model
         'discounts',
         'total_products',
         'total',
-        'order_status_id'
+        'order_status_id',
+        'is_refund'
     ];
     public function orderStatus()
     {
