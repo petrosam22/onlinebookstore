@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained(); // Replace 'users' with the actual name of your users table
             $table->foreignId('book_id')->constrained();
             $table->foreignId('rate_id')->constrained();
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

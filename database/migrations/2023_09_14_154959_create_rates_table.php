@@ -16,6 +16,8 @@ return new class extends Migration
             $table->float('rate',8,2);
             $table->foreignId('book_id')->constrained();
             $table->foreignId('user_id')->constrained('users'); // Replace 'users' with the actual name of your users table
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

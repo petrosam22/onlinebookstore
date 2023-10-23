@@ -26,6 +26,10 @@ class OrderRepositories implements OrderRepositoryInterface {
         $quantities = $request->quantities;
         $orderStatus = OrderStatus::where('status' , 'pending')->first();
 
+        if($bookIds->isEmpty()){
+            return "Books Not Found";
+        }
+
 
 
 
@@ -45,12 +49,13 @@ class OrderRepositories implements OrderRepositoryInterface {
         'total_products'=>$books->count(),
         'total'=>$totalPrices,
         'quantities'=>json_encode($quantities),
-        'order_status_id'=>$orderStatus->id
+        'order_status_id'=>$orderStatus->id,
+        'is_refund'=>false
 ]);
 
         $this->attachBooksToOrder($order, $bookIds, $quantities, $bookPrices);
 
-        $this->sendOrderEmail($order, $books, $user);
+        // $this->sendOrderEmail($order, $books, $user);
 
         return response()->json([
             'data' => $order,

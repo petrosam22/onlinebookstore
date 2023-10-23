@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('book_id')->constrained();
             $table->foreignId('order_id')->constrained();
             $table->text('quantities');
+            $table->softDeletes();
+
             $table->decimal('total',8,2);
             $table->timestamps();
         });

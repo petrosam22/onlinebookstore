@@ -17,6 +17,6 @@ interface OrderRepositoryInterface {
 
     public function deleteOrder(Order $order);
     public function closeOrder(Order $order);
-        //softdelete
+      
 
 }

@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('replays', function (Blueprint $table) {
             $table->id();
             $table->longText('content');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

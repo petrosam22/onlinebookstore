@@ -11,11 +11,12 @@ use App\Models\Review;
 use App\Models\Category;
 use App\Models\Publisher;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Book extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
     protected $fillable  =
     [
         'name',

@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->longText('body');
             $table->string('photo');
+            $table->softDeletes();
+
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

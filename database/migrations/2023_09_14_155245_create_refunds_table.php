@@ -20,6 +20,7 @@ return new class extends Migration
             $table->float('amount' , 8,2);
             $table->integer('refund_number');
             $table->integer('quantity');
+            $table->softDeletes();
 
             $table->enum('status' , ['pending' , 'Approved','Rejected']);
             $table->timestamps();

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained();
             $table->timestamp('delivered_at')->nullable();
+            $table->softDeletes();
 
             $table->timestamps();
         });

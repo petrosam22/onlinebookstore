@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('publisher_id')->constrained();
             $table->foreignId('category_id')->constrained('categories');
             $table->string('image');
+                        $table->softDeletes();
+
             $table->longText('description');
             $table->integer('quantity');
             $table->decimal('price' , 8,2);

@@ -34,11 +34,11 @@ class UserRepositories implements UserRepositoryInterface {
 
          $token = $user->createToken('Api-Token')->plainTextToken;
 
-         dispatch(new SendWelcomeEmailJob([
-            'email' => $user->email,
-            'name' => $user->name,
+        //  dispatch(new SendWelcomeEmailJob([
+        //     'email' => $user->email,
+        //     'name' => $user->name,
 
-        ]));
+        // ]));
 
          return [
             'user' => $user,

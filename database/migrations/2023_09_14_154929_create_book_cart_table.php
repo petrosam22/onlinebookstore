@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('book_id')->constrained();
             $table->foreignId('cart_id')->constrained();
             $table->integer('quantity');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

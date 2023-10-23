@@ -27,18 +27,18 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             OrderStatusSeeder::class,
-            // UserTableSeeder::class,
-            // AuthorTableSeeder::class,
-            // publisherTableSeeder::class,
-            // CategoryTableSeeder::class,
-            // BookTableSeeder::class,
-            // CartTableSeeder::class,
-            // PostTableSeeder::class,
-            // OrderTableSeeder::class,
-            // RateTableSeeder::class,
-            // RefundTableSeeder::class,
-            // ReviewTableSeeder::class,
-            // CommentTableSeeder::class,
+            UserTableSeeder::class,
+            AuthorTableSeeder::class,
+            publisherTableSeeder::class,
+            CategoryTableSeeder::class,
+            BookTableSeeder::class,
+            CartTableSeeder::class,
+            PostTableSeeder::class,
+            OrderTableSeeder::class,
+            RateTableSeeder::class,
+            RefundTableSeeder::class,
+            ReviewTableSeeder::class,
+            CommentTableSeeder::class,
 
         ]);
     }

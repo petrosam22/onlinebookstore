@@ -21,6 +21,8 @@ return new class extends Migration
            $table->decimal('discounts')->default(0.00);
            $table->decimal('total_products');
             $table->decimal('total',8,2);
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Models;
-use App\Enums\OrderStatusEnum;
-
 use App\Models\Order;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use App\Enums\OrderStatusEnum;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class OrderStatus extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
     protected $fillable = ['status'];
 
 public function orders()
