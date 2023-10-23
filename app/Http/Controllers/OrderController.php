@@ -22,7 +22,9 @@ class OrderController extends Controller
      }
     public function index()
     {
-        //
+        $order = $this->OrderRepositories->orders();
+
+        return $order;
     }
 
     /**

@@ -84,10 +84,10 @@ Route::middleware(['auth:sanctum', 'admin','throttle:api'])->prefix('author')->g
 
 
 //Author CRUD
-Route::middleware(['auth:sanctum','throttle:api'])->prefix('author')->group(function(){
-Route::get('/{id}/books',[AuthorController::class,"authorBooks"]);
-Route::get('/{id}',[AuthorController::class,"show"]);
-Route::get('/all',[AuthorController::class,"index"]);
+Route::middleware(['auth:sanctum','throttle:api'])->group(function(){
+Route::get('author/{id}/books',[AuthorController::class,"authorBooks"]);
+Route::get('author/{id}',[AuthorController::class,"show"]);
+Route::get('authors',[AuthorController::class,"index"]);
 });
 
 //Publisher Crud Admin Only
@@ -195,10 +195,12 @@ Route::post('/create', [OrderController::class,'store']);
 Route::patch('/update/{id}', [OrderController::class,'update']);
 Route::post('/stripe/{order}', [OrderController::class,'stripe']);
 Route::delete('/delete/{order}', [OrderController::class,'destroy']);
-Route::post('/close/{order}', [OrderController::class,'closeOrder']);
-
-
+Route::get('all', [OrderController::class,'index'])->middleware(['admin']);
+Route::post('/close/{order}', [OrderController::class,'closeOrder'])->middleware(['admin']);
 });
+
+
+
 
 
 //orderStatus Crud Admin Only

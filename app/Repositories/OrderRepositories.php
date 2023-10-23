@@ -19,6 +19,16 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\interfaces\OrderRepositoryInterface;
 
 class OrderRepositories implements OrderRepositoryInterface {
+
+
+    public function orders(){
+        $orders = Order::paginate(5);
+
+        return response()->json([
+            'data' => $orders,
+            'length' => $orders->count(),
+        ]);
+      }
     public function createOrder(OrderRequest $request){
          $books = Book::whereIn('id', $request->book_ids)->get();
         $bookIds = $books->pluck('id');
@@ -55,7 +65,7 @@ class OrderRepositories implements OrderRepositoryInterface {
 
         $this->attachBooksToOrder($order, $bookIds, $quantities, $bookPrices);
 
-        // $this->sendOrderEmail($order, $books, $user);
+        $this->sendOrderEmail($order, $books, $user);
 
         return response()->json([
             'data' => $order,

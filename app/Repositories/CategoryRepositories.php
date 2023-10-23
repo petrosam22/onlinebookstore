@@ -35,7 +35,7 @@ class CategoryRepositories implements CategoryRepositoryInterface{
 
 
     public function categories(){
-        $categories = Category::all();
+        $categories = Category::paginate(5);
 
 
         return [

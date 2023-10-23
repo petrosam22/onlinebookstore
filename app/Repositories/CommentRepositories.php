@@ -12,11 +12,11 @@ use App\interfaces\CommentRepositoryInterface;
 
 class CommentRepositories implements CommentRepositoryInterface {
 
-   
-   
-   
+
+
+
     public function comments(){
-        $comments = Comment::all();
+        $comments = Comment::paginate(5);
 
         return $comments;
     }

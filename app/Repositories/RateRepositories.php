@@ -81,7 +81,7 @@ class RateRepositories implements RateRepositoryInterface
 
     public function rates()
     {
-        $rates = Rate::all();
+        $rates = Rate::paginate(5);
         return $rates;
 
 

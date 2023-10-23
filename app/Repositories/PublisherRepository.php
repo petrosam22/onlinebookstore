@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Repositories;
 use App\interfaces\PublisherRepositoryInterface;
@@ -10,7 +10,9 @@ class PublisherRepository implements PublisherRepositoryInterface{
 
 
     public function listPublisher(){
-        return  $publishers=Publisher::all();
+          $publishers=Publisher::paginate(5);
+
+          return $publishers;
     }
     public function createPublisher(PublisherRequest $request){
 
@@ -32,15 +34,15 @@ class PublisherRepository implements PublisherRepositoryInterface{
 
         return [
         'data'=>$publisher,
-        'message'=>'Publisher Updated Successfully'   
+        'message'=>'Publisher Updated Successfully'
         ];
         }
 
         public function findPublisherId($id){
             return $publisher = Publisher::findOrFail($id);
 
-            
-            
+
+
         }
 
         public function deletePublisher($id){

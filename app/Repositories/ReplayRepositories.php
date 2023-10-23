@@ -42,7 +42,7 @@ class ReplayRepositories implements ReplayRepositoryInterface{
     }
 
     public function replays(){
-        $replays = Replay::all();
+        $replays = Replay::paginate(5);
 
         return $replays;
     }

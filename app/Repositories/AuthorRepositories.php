@@ -28,7 +28,7 @@ use ValidatesImageTrait;
     }
 
     public function listAuthors(){
-        $authors = Author::all();
+        $authors = Author::paginate(5);
 
         return
         [

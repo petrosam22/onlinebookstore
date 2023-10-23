@@ -16,7 +16,7 @@ class BookRepositories implements BookRepositoryInterface {
 
 
     public function books(){
-        $books = Book::all();
+        $books = Book::paginate(5);
 
 
         return $books;
