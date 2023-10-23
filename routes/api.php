@@ -47,8 +47,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('user')->group(function () {
 
+
+// User Authentication
+Route::prefix('user')->group(function () {
 Route::post('/register' , [UserController::class,'storeUser']);
 Route::post('/login' , [UserController::class,'login'])->name('login');
 Route::post('/ForgetPassword' , [ForgotPasswordController::class,'ForgetPassword']);
@@ -60,8 +62,8 @@ Route::post('/logout' , [UserController::class,'logout'])->middleware('auth:sanc
 
 
 
-
-Route::middleware(['auth:sanctum', 'admin'])->prefix('category')->group(function () {
+//Category Crud Admin Only
+Route::middleware(['auth:sanctum', 'admin','throttle:api'])->prefix('category')->group(function () {
     Route::post('/create', [CategoryController::class, 'create']);
     Route::patch('/update/{id}', [CategoryController::class, 'update']);
     Route::get('/all', [CategoryController::class, 'categories']);
@@ -71,22 +73,25 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('category')->group(function
 
 
 
-Route::middleware(['auth:sanctum', 'admin'])->prefix('author')->group(function(){
-
+//Author Crud Admin Only
+Route::middleware(['auth:sanctum', 'admin','throttle:api'])->prefix('author')->group(function(){
     Route::post('/create',[AuthorController::class,"create"]);
     Route::patch('/update/{id}',[AuthorController::class,"update"]);
     Route::delete('/delete/{id}',[AuthorController::class,"delete"]);
 });
 
 
-Route::middleware(['auth:sanctum'])->prefix('author')->group(function(){
 
+
+//Author CRUD
+Route::middleware(['auth:sanctum','throttle:api'])->prefix('author')->group(function(){
 Route::get('/{id}/books',[AuthorController::class,"authorBooks"]);
 Route::get('/{id}',[AuthorController::class,"show"]);
 Route::get('/all',[AuthorController::class,"index"]);
 });
 
-Route::middleware(['auth:sanctum', 'admin'])->prefix('publisher')->group(function(){
+//Publisher Crud Admin Only
+Route::middleware(['auth:sanctum', 'admin','throttle:api'])->prefix('publisher')->group(function(){
     Route::get('/all',[PublisherController::class,"index"]);
     Route::post('/create',[PublisherController::class,"create"]);
     Route::patch('/update/{id}',[PublisherController::class,"update"]);
@@ -99,20 +104,25 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('publisher')->group(functio
 
 });
 
-Route::middleware(['auth:sanctum' , 'admin'])->prefix('book')->group(function(){
+//Book Crud Admin Only
+Route::middleware(['auth:sanctum' , 'admin','throttle:api'])->prefix('book')->group(function(){
 Route::post('/create' , [BookController::class ,'store']);
 Route::patch('/update/{id}' , [BookController::class ,'update']);
 Route::delete('/delete/{id}' , [BookController::class ,'destroy']);
 Route::post('/{bookId}' , [BookController::class ,'addCategory']);
-
 });
-Route::get('book/{id}' , [BookController::class ,'show'])->middleware('auth:sanctum');
-Route::get('books' , [BookController::class ,'index'])->middleware('auth:sanctum');
-Route::get('books/category/{id}' , [BookController::class ,'bookCategory'])->middleware('auth:sanctum');
 
 
+//User
+Route::middleware(['auth:sanctum','throttle:api'])->prefix('books')->group(function(){
+Route::get('/{id}' , [BookController::class ,'show'])->middleware('auth:sanctum');
+Route::get('/all' , [BookController::class ,'index'])->middleware('auth:sanctum');
+Route::get('/category/{id}' , [BookController::class ,'bookCategory'])->middleware('auth:sanctum');
+});
 
-Route::middleware(['auth:sanctum'])->prefix('cart')->group(function(){
+
+//Cart Crud
+Route::middleware(['auth:sanctum','throttle:api'])->prefix('cart')->group(function(){
 Route::post('/create/{id}' , [CartController::class,'store']);
 Route::patch('/update/{id}/{bookId}' , [CartController::class,'update']);
 Route::get('/user/{id}' , [CartController::class,'userCarts']);
@@ -121,7 +131,8 @@ Route::get('/{id}' , [CartController::class,'show']);
 });
 
 
-Route::middleware(['auth:sanctum'])->prefix('post')->group(function(){
+//Post Crud
+Route::middleware(['auth:sanctum' , 'throttle:api'])->prefix('post')->group(function(){
 Route::post('/create' , [PostController::class,'store']);
 Route::post('/update/{id}' , [PostController::class,'update']);
 Route::get('/all' , [PostController::class,'index']);
@@ -132,8 +143,11 @@ Route::get('/users' , [PostController::class,'usersPost']);
 Route::get('/user/{id}' , [PostController::class,'getPostsByUser']);
 
 });
-// CommentController
-Route::middleware(['auth:sanctum'])->prefix('comment')->group(function(){
+
+
+
+// Comment Crud
+Route::middleware(['auth:sanctum','throttle:api'])->prefix('comment')->group(function(){
     Route::get('/all' , [CommentController::class ,'index']);
     Route::post('/store/{id}' , [CommentController::class ,'store']);
 Route::patch('/update/{id}' , [CommentController::class ,'update']);
@@ -142,7 +156,8 @@ Route::get('/user/{id}' , [CommentController::class ,'userComments']);
 Route::get('/post/{id}' , [CommentController::class ,'listCommentsPost']);
 });
 
-Route::middleware(['auth:sanctum'])->prefix('replay')->group(function(){
+//Replay Crud
+Route::middleware(['auth:sanctum','throttle:api'])->prefix('replay')->group(function(){
     Route::get('all' , [ReplayController::class,'index']);
     Route::post('/store/{id}' , [ReplayController::class,'store']);
 Route::patch('/update/{replay}' , [ReplayController::class,'update']);
@@ -151,7 +166,8 @@ Route::delete('/delete/{replay}' , [ReplayController::class,'destroy']);
 
 
 
-Route::middleware(['auth:sanctum'])->prefix('rate')->group(function(){
+//Rate Crud
+Route::middleware(['auth:sanctum','throttle:api'])->prefix('rate')->group(function(){
     Route::post('/store/{book}' , [RateController::class,'store']);
     Route::patch('/update/{id}' , [RateController::class,'update']);
 Route::delete('/delete/{id}' , [RateController::class,'destroy']);
@@ -160,12 +176,12 @@ Route::get('/book/{book}' , [RateController::class,'bookRates']);
 Route::get('/calc/{book}' , [RateController::class,'calculateBookRate']);
 });
 
-Route::middleware(['auth:sanctum'])->prefix('review')->group(function(){
 
+
+//Review Crud
+Route::middleware(['auth:sanctum','throttle:api'])->prefix('review')->group(function(){
 Route::post('/store', [ReviewController::class,'store']);
 Route::post('/update/{id}', [ReviewController::class,'update']);
-
-
 Route::get('/book/{book}', [ReviewController::class,'bookReviews']);
 Route::get('/all', [ReviewController::class,'index']);
 Route::delete('/delete/{id}', [ReviewController::class,'destroy']);
@@ -173,7 +189,8 @@ Route::delete('/delete/{id}', [ReviewController::class,'destroy']);
 
 
 
-Route::middleware(['auth:sanctum'])->prefix('order')->group(function(){
+//Order Crud
+Route::middleware(['auth:sanctum','throttle:api'])->prefix('order')->group(function(){
 Route::post('/create', [OrderController::class,'store']);
 Route::patch('/update/{id}', [OrderController::class,'update']);
 Route::post('/stripe/{order}', [OrderController::class,'stripe']);
@@ -184,20 +201,22 @@ Route::post('/close/{order}', [OrderController::class,'closeOrder']);
 });
 
 
-
-Route::middleware(['auth:sanctum','admin'])->prefix('orderStatus')->group(function(){
+//orderStatus Crud Admin Only
+Route::middleware(['auth:sanctum','admin','throttle:api'])->prefix('orderStatus')->group(function(){
 Route::get('/all',[OrderStatusController::class,'index']);
 Route::post('/store',[OrderStatusController::class,'store']);
 Route::patch('/update/{id}',[OrderStatusController::class,'update']);
 Route::delete('/delete/{id}',[OrderStatusController::class,'destroy']);
 Route::post('/changeStatus/{order}',[OrderStatusController::class,'changeStatus']);
-
-
 Route::get('/orders/{id}',[OrderStatusController::class,'ordersByStatusId']);
 
 });
 
-Route::middleware(['auth:sanctum','admin'])->prefix('OrderDeliver')->group(function(){
+
+
+//OrderDeliver Crud Admin Only
+
+Route::middleware(['auth:sanctum','admin','throttle:api'])->prefix('OrderDeliver')->group(function(){
 Route::post('/store/{order}',[OrderDeliverController::class , 'store']);
 Route::get('/all',[OrderDeliverController::class , 'index']);
 Route::patch('/update/{id}',[OrderDeliverController::class , 'update']);
@@ -206,8 +225,8 @@ Route::delete('/delete/{id}',[OrderDeliverController::class , 'destroy']);
 });
 
 
-
-Route::middleware(['auth:sanctum'])->prefix('refund')->group(function(){
+//Refund Crud
+Route::middleware(['auth:sanctum','throttle:api'])->prefix('refund')->group(function(){
 Route::post('/create/{order}' ,[RefundController::class,'store']);
 Route::post('/update/{refund}' ,[RefundController::class,'update']);
 

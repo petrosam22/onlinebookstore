@@ -24,7 +24,7 @@ class PostRequest extends FormRequest
         return [
             'title'=>'required|string',
             'body'=>'required|string',
-            'photo'=>'required|image',
+            'photo'=>'required',
 
 
         ];
