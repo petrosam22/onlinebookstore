@@ -7,9 +7,9 @@ use App\Http\Requests\UpdatePostRequest;
 
 
 interface PostRepositoryInterface {
+    public function allPost();
     public function createPost(PostRequest $request);
     public function updatePost(UpdatePostRequest $request,$id);
-    public function allPost();
     public function showPost($id);
     public function findPost($id);
 

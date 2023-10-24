@@ -132,13 +132,15 @@ Route::get('/{id}' , [CartController::class,'show']);
 
 
 //Post Crud
+
+ 
 Route::middleware(['auth:sanctum' , 'throttle:api'])->prefix('post')->group(function(){
 Route::post('/create' , [PostController::class,'store']);
 Route::post('/update/{id}' , [PostController::class,'update']);
-Route::get('/all' , [PostController::class,'index']);
+Route::get('/all' , [PostController::class,'index'])->name('posts');
 Route::get('/show/{id}' , [PostController::class,'show']);
 Route::get('/find/{id}' , [PostController::class,'find']);
-Route::delete('/delete/{id}' , [PostController::class,'destroy']);
+Route::delete('/delete/{id}' , [PostController::class,'destroy'])->name('delete');
 Route::get('/users' , [PostController::class,'usersPost']);
 Route::get('/user/{id}' , [PostController::class,'getPostsByUser']);
 
@@ -235,3 +237,9 @@ Route::get('/orders' ,[RefundController::class,'orderThatRefund']);
 
 });
 
+
+
+Route::get('/test',function(){
+return "ss";
+
+});

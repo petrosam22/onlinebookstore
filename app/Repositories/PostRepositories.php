@@ -12,7 +12,16 @@ use App\interfaces\PostRepositoryInterface;
 
 
 class PostRepositories implements PostRepositoryInterface {
+
     use ValidatesImageTrait;
+
+
+      public function allPost(){
+        $posts = Post::with('comments')->get();
+        return $posts;
+    }
+
+
     public function createPost(PostRequest $request){
 
         $photo = $this->validateImage($request->photo , 'post');
@@ -39,10 +48,7 @@ class PostRepositories implements PostRepositoryInterface {
     }
 
 
-    public function allPost(){
-        $posts = Post::with('comments')->get();
-        return $posts;
-    }
+
 
 
 
